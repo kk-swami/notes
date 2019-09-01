@@ -58,6 +58,26 @@ Below, listing all commands to move from any state to any other state
 
 
 
+# Git Diff
+
+To view differences between any 2 of working directory, staged and commited states
+
+- git diff (no parameters)
+    Print out differences between working directory and the stage
+
+- git diff --cached:
+    Print out differences between the stage and current commit (HEAD)
+
+- git diff HEAD:
+    Print out differences between working directory and current commit (HEAD)
+
+- git diff --name-only
+    Show only names of changed files.
+
+- git diff --name-status
+    Show only names and status of changed files.
+
+
 
 # Logging commands
 

@@ -172,14 +172,18 @@ As mentioned earlier in the page, remote is the cloud state which allows collabo
 
 # Config
 
-- Check which remote repo the current repo was cloned from
+- get which remote repo the current repo was cloned from
     git config --get remote.origin.url
 
--  Check user name
+-  get and set user name
     git config --get user.name
+    git config --user.name "name"
+    
+
 
 -  Check user.email
     git config --get user.email
+    git config --user.email "mail"
 
 -  Change user name or email only for current git repo  
     In repo of interest, type  

@@ -198,6 +198,44 @@ Issue - If you have multiple git hub accounts, when you clone/init/push ; how wo
 [A good link](https://code.tutsplus.com/tutorials/quick-tip-how-to-work-with-github-and-multiple-accounts--net-22574)  
 
 
+# Tagging
+
+Used to tag commits with version numbers, tags behave like branches (you can check them out like branches); but don't delete them  
+There are two kinds of tags i) annotated (use with a -a option, has more detailed tagging information); and ii) lightweight (use without a -a option, less information than annotated))
+
+
+Command for tagging a commit version no  
+    - git tag -a v1 f855792 -m "First release of code"    (tags commit ID f855792 with tag v1 )  
+    
+Command for listing all existing tags
+    - git tag  
+    
+Command for listing all existing tags filtered by tag name (like grep)  
+    - git tag -l "v1*"  
+    
+View messages along with tag names (default git tag does not show messages)  
+    - git tag -n  (view all tags with tag messages)
+    - git tag -n3  view latest 3 tags with tag messages)  
+    
+Show details of a particular version -   
+    - git show v1 (display contents of v1)
+    
+Deleting tags
+    - git tag -d v1 (deletes tag with tag identifier v1)
+    
+Pushing tags
+    Tags are not pushed with rest of code when you do git push  
+    You have to specifically do  
+    git push origin v1.0
+    
+
+    
+
+    
+
+[A good link](https://blog.daftcode.pl/how-to-become-a-master-of-git-tags-b70fbd9609d9)
+
+
 
 
 

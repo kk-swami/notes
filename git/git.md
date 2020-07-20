@@ -7,12 +7,24 @@ Quoting [wikipedia](https://en.wikipedia.org/wiki/Git) verbatim , it is a "distr
 changes in source during software development
 
 [The book](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) provides a nice description on local version control,
-centralized version control and finally distributed version control systems  
+centralized version control and finally distributed version control systems    
 
-Compared to other version control systems like CVS, subversion, etc, while these other VCS store files, and changes made to each file
+SVN, CVS, Subversion, Perforce are centralized version control systems where a single centralized repository serves as a communication hub between developers, 
+and collaboration happens by passing changesheets between the developers local repo and the centralized repo   
+The downside of this is that if the centralized repo is down for some reason, or corrupted, chaos happens  
+
+Examples of distrubuted version control systems are git, mercurial, bazaar, darcs  
+In this, clients don't store just the latest snapshot of files, but mirror the entire history of the repo (every clone is a full backup of all the data). 
+Thus , if if any server dies, the entire history stays on every other client repo.  
+Another advantage is that working with several remote repos at the same time with the same project is possible  
+A third advantage is that it is blazingly fast as it does not need to communicate with the centralized server much 
+
+Compared to other centralized or distributed version control systems like CVS, subversion, bazaar, etc, while these other VCS store files, and changes made to each file
 over tim (delta-based); git thinks of data as a series of snapshots of a file system (a stream of snapshots). Every time a commit
 is done, a snapshot of all files are taken and a reference to the snapshot is stored (of course, for efficiency, if some files are not
-changed from the previous commit, just a link to the previous file is stored) [2](2)
+changed from the previous commit, just a link to the previous file is stored) [2](2)  
+
+
 
 
 # How does Git work
@@ -56,7 +68,35 @@ Below, listing all commands to move from any state to any other state
 - state 2 -> state 1 ("unstaging a file")
     git reset HEAD "file name". This unstages a previously staged file
 
+# Changing commits  
 
+If you want to change previous commits, here are some options  
+
+- git commit --amend 
+   This is used if you want to make changes to the immediately previous commit. There are two scenarios in 
+   which this is useful    
+   1) Want to modify the message of the immediately previous commit  
+     git commit --amend -m "updated message"   
+   2) Have some files in the staging environment (or which you can add to the staging environment) which you want as a part of the same commit  
+     once files are staged, 
+     git commit --amend --no-edit  
+   Note that amend does not really modify the immediately previous commit, but rather replaces it entirely  
+   Therefore, avoid ammending commits which other folks have started working on    
+   
+   
+
+   
+- git rebase
+   This is used to change older commits or multiple commits in one shot. Again, since  new commits replace the old,
+   do not do this on pushed commits  
+   
+    
+   
+
+# to untrack a file/directory
+  git rm read.md - deletes the file read.md from working directory , and unstages it 
+  git rm --cached read.md - unstages read.md, does not delete from working directory 
+  to untrack a file directory instead of a file, do git rm --cached -r dirname
 
 # Git Diff
 
@@ -65,7 +105,7 @@ To view differences between any 2 of working directory, staged and commited stat
 - git diff (no parameters)
     Print out differences between working directory and the stage
 
-- git diff --cached:
+- git diff --cached or git diff --staged:
     Print out differences between the stage and current commit (HEAD)
 
 - git diff HEAD:
@@ -170,7 +210,17 @@ As mentioned earlier in the page, remote is the cloud state which allows collabo
     or just git push assumes remote name is current remote name and branch is current checkout branch
 
 
-# Config
+# Config  
+
+There are 3 levels of git config, stored in 3 seperate files
+    1) stored in /etc/gitconfig - contains values applied to every user in system and all repos 
+    adding a --system to git config commands reads and writes from this file specifically  
+    2) stored in ~/.gitconfig - contains values specific to you. add a --global to git config commands for this  
+    3) stored in .git/config of whichever repo you are currently in - values specific to current repo. use --local with git config, or nothing at
+    all as this is default   
+    each level overwrites values in previous level   
+    
+    git config --list --show-origin shows all git parameters and which of the 3 files they are coming from  
 
 - get which remote repo the current repo was cloned from
     git config --get remote.origin.url

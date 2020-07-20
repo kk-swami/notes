@@ -97,6 +97,7 @@ If you want to change previous commits, here are some options
   git rm read.md - deletes the file read.md from working directory , and unstages it 
   git rm --cached read.md - unstages read.md, does not delete from working directory 
   to untrack a file directory instead of a file, do git rm --cached -r dirname
+  
 
 # Git Diff
 
